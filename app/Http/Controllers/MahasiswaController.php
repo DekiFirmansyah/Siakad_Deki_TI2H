@@ -17,9 +17,9 @@ class MahasiswaController extends Controller
     public function index()
     {
         //fungsi eloquent menampilkan data menggunakan pagination
-        $mahasiswa = Mahasiswa::all(); // Mengambil semua isi tabel
-        $paginate = Mahasiswa::orderBy('id_mahasiswa', 'asc')->paginate(3);
-        return view('mahasiswa.index', ['mahasiswa' => $mahasiswa,'paginate'=>$paginate]);
+        // $mahasiswa = Mahasiswa::all(); // Mengambil semua isi tabel
+        $mahasiswa = Mahasiswa::orderBy('id_mahasiswa', 'asc')->paginate(4);
+        return view('mahasiswa.index', ['mahasiswa' => $mahasiswa]);
     }
 
     public function create()
@@ -35,6 +35,9 @@ class MahasiswaController extends Controller
             'Nama' => 'required',
             'Kelas' => 'required',
             'Jurusan' => 'required',
+            'tgl_lahir' => 'required',
+            'email' => 'required',
+            'alamat' => 'required',
         ]);
 
         //fungsi eloquent untuk menambah data
@@ -64,6 +67,9 @@ class MahasiswaController extends Controller
             'Nama' => 'required',
             'Kelas' => 'required',
             'Jurusan' => 'required',
+            'tgl_lahir' => 'required',
+            'email' => 'required',
+            'alamat' => 'required',
         ]);
 
         //fungsi eloquent untuk mengupdate data inputan kita
@@ -72,6 +78,9 @@ class MahasiswaController extends Controller
             'nama'=>$request->Nama,
             'kelas'=>$request->Kelas,
             'jurusan'=>$request->Jurusan,
+            'tgl_lahir' => $request->Tanggal,
+            'email' => $request->Email,
+            'alamat' => $request->Alamat,
         ]);
 
         //jika data berhasil diupdate, akan kembali ke halaman utama
@@ -83,5 +92,15 @@ class MahasiswaController extends Controller
         //fungsi eloquent untuk menghapus data
         Mahasiswa::where('nim', $nim)->delete();
         return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa Berhasil Dihapus');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $mahasiswa = DB::table('mahasiswa')
+            ->where('nama','like','%'.$search.'%')
+            ->paginate();
+        return view('mahasiswa.detail', ['mahasiswa' => $mahasiswa]);
     }
 };
