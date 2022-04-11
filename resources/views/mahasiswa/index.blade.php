@@ -9,11 +9,11 @@
             <div class="float-right my-2">
                 <a class="btn btn-success" href="{{ route('mahasiswa.create') }}"> Input Mahasiswa</a>
             </div>
-            <div class="float-right my-2">
-                <form action="/mahasiswa/search" method="GET" class="form-inline">
-                    <input class="form-control" type="text" name="search" 
+            <div class="float-left my-2">
+                <form action="{{ route('search') }}" method="get" class="form-inline">
+                    <input class="form-control" type="text" name="search" id="search"
                     placeholder="Cari Mahasiswa ..." value="{{ old('search') }}">
-                    <input type="submit" value="Search" class="btn btn-primary">
+                    <input type="submit" value="search" class="btn btn-outline-primary">
                 </form>
             </div>
         </div>
@@ -43,11 +43,11 @@
             <th width="280px">Action</th>
         </tr>
 
-        @foreach ($mahasiswa as $mhs)
+        @foreach ($paginate as $mhs)
         <tr>
             <td>{{ $mhs ->nim }}</td>
             <td>{{ $mhs ->nama }}</td>
-            <td>{{ $mhs ->kelas }}</td>
+            <td>{{ $mhs ->kelas->nama_kelas }}</td>
             <td>{{ $mhs ->jurusan }}</td>
             <td>{{ $mhs ->tgl_lahir }}</td>
             <td>{{ $mhs ->email }}</td>
@@ -65,10 +65,10 @@
         @endforeach
     </table>
 
-    Current Page: {{ $mahasiswa->currentPage() }}<br>
-    Jumlah Data: {{ $mahasiswa->total() }}<br>
-    Data Halaman: {{ $mahasiswa->perPage() }}<br>
+    Current Page: {{ $paginate->currentPage() }}<br>
+    Jumlah Data: {{ $paginate->total() }}<br>
+    <!--Data Halaman: {{ $paginate->perPage() }}<br>-->
     <br>
-    {{ $mahasiswa->links() }}
+    {{ $paginate->links() }}
 
 @endsection
