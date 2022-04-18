@@ -28,6 +28,7 @@ class Mahasiswa extends Model //Definisi Model
         'tgl_lahir',
         'email',
         'alamat',
+        'foto'
     ];
 
     public function kelas(){

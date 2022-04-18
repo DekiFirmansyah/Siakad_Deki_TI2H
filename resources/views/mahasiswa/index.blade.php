@@ -37,10 +37,11 @@
             <th>Nama</th>
             <th>Kelas</th>
             <th>Jurusan</th>
-            <th>Tanggal Lahir</th>
+            <!--<th>Tanggal Lahir</th>
             <th>Email</th>
-            <th>Alamat</th>
-            <th width="280px">Action</th>
+            <th>Alamat</th>-->
+            <th>Foto</th>
+            <th width="320px">Action</th>
         </tr>
 
         @foreach ($paginate as $mhs)
@@ -49,9 +50,10 @@
             <td>{{ $mhs ->nama }}</td>
             <td>{{ $mhs ->kelas->nama_kelas }}</td>
             <td>{{ $mhs ->jurusan }}</td>
-            <td>{{ $mhs ->tgl_lahir }}</td>
+            <!--<td>{{ $mhs ->tgl_lahir }}</td>
             <td>{{ $mhs ->email }}</td>
-            <td>{{ $mhs ->alamat }}</td>
+            <td>{{ $mhs ->alamat }}</td>-->
+            <td><img style="width: 50px; overflow: hidden" class="rounded-circle" src="{{ asset('./storage/'. $mhs->foto) }}" alt=""></td>
             <td>
                 <form action="{{ route('mahasiswa.destroy',['mahasiswa'=>$mhs->nim]) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('mahasiswa.show',$mhs->nim) }}">Show</a>
